@@ -16,7 +16,7 @@ export default function Layout(props) {
 
     const footer = (
         <footer>
-            <p><span className="text-gradient">CoffeeTrack</span> was made by <a href="https://github.com/rakeebh7233/coffee-track" target="_blank">rakeebh7233</a>  using the <a href="https://www.fantacss.smoljames.com" target="_blank">FantaCSS</a> design library.</p>
+            <p><span className="text-gradient">CoffeeTrack</span> was made by <a href="https://github.com/rakeebh7233/coffee-track" target="_blank">rakeebh7233</a><br />  using the <a href="https://www.fantacss.smoljames.com" target="_blank">FantaCSS</a> design library.</p>
         </footer>
     );
 
