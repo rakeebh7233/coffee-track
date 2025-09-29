@@ -1,5 +1,5 @@
-import { calculateCurrentCaffeineLevel, coffeeConsumptionHistory, statusLevels, 
-    calculateCoffeeStats, getTopThreeCoffees } from "../utils"
+import { useAuth } from "../context/AuthContext"
+import { calculateCurrentCaffeineLevel, statusLevels, calculateCoffeeStats, getTopThreeCoffees } from "../utils"
 
 function StatCard(props) {
     const { lg, title, children } = props
@@ -11,10 +11,13 @@ function StatCard(props) {
     )
 }
 export default function Stats() {
-    const stats = calculateCoffeeStats(coffeeConsumptionHistory)
-    const caffieneLevel = calculateCurrentCaffeineLevel(coffeeConsumptionHistory)
+    const { globalData } = useAuth()
+    const stats = calculateCoffeeStats(globalData)
+    console.log(stats)
+
+    const caffieneLevel = calculateCurrentCaffeineLevel(globalData)
     const warningLevel = caffieneLevel < statusLevels['low'].maxLevel ? 'low' :
-        (caffieneLevel < statusLevels['moderate'].maxLevel ? 'medium' : 'high')
+        (caffieneLevel < statusLevels['moderate'].maxLevel ? 'moderate' : 'high')
 
     return (
         <>
@@ -51,11 +54,11 @@ export default function Stats() {
                         </tr>
                     </thead>
                     <tbody>
-                        {getTopThreeCoffees(coffeeConsumptionHistory).map((coffee, coffeeIndex) => (
+                        {getTopThreeCoffees(globalData).map((coffee, coffeeIndex) => (
                             <tr key={coffeeIndex}>
                                 <td>{coffee.coffeeName}</td>
                                 <td>{coffee.count}</td>
-                                <td>{coffee.percentage}%</td>
+                                <td>{coffee.percentage}</td>
                             </tr>
                         ))}
                     </tbody>

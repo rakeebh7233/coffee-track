@@ -2,6 +2,9 @@ import { coffeeOptions } from "../utils"
 import { useState } from "react"
 import Modal from "./Modal"
 import Authentication from "./Authentication"
+import { useAuth } from "../context/AuthContext"
+import { doc, setDoc } from "firebase/firestore"
+import { db } from "../../firebase"
 
 export default function CoffeeForm(props) {
     const { isAuthenticated } = props
@@ -12,19 +15,59 @@ export default function CoffeeForm(props) {
     const [hour, setHour] = useState(0)
     const [min, setMin] = useState(0)
 
-    function handleSubmitForm() {
+    const { globalData, setGlobalData, globalUser } = useAuth()
+
+    async function handleSubmitForm() {
         if (!isAuthenticated) {
             setShowModal(true)
             return
         }
-        console.log(selectedCoffee, coffeeCost, hour, min)
+        // gaurd clause so only comepleted form is submitted
+        if (!selectedCoffee) {
+            return
+        }
+
+        try {
+            // Create new data object
+            const newGlobalData = {
+                ...(globalData || {})
+            }
+            const nowTime = Date.now()
+            const timeToSubtrack = (hour * 60 * 60 * 1000) + (min * 60 * 100)
+            const timestamp = nowTime - timeToSubtrack
+
+            const newData = {
+                name: selectedCoffee,
+                cost: coffeeCost
+            }
+
+            newGlobalData[timestamp] = newData
+            // Update the global state
+            console.log(timestamp, selectedCoffee, coffeeCost)
+            setGlobalData(newGlobalData)
+            // Persist data in firebase
+            const userRef = doc(db, 'users', globalUser.uid)
+            const res = await setDoc(userRef, {
+                [timestamp]: newData
+            }, { merge: true })
+
+            // Reset Form
+            setSelectedCoffee(null)
+            setHour(0)
+            setMin(0)
+            setCoffeeCost(0)
+        } catch (error) {
+            console.log(error)
+        } 
+
+
     }
 
     return (
         <>
             {showModal && (
                 <Modal handleCloseModal={() => setShowModal(false)}>
-                    <Authentication />
+                    <Authentication handleCloseModal={() => setShowModal(false)} />
                 </Modal>
             )}
             <div className="section-header">
