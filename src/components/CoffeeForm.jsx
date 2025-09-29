@@ -1,7 +1,11 @@
 import { coffeeOptions } from "../utils"
 import { useState } from "react"
+import Modal from "./Modal"
+import Authentication from "./Authentication"
 
-export default function CoffeeForm() {
+export default function CoffeeForm(props) {
+    const { isAuthenticated } = props
+    const [showModal, setShowModal] = useState(false)
     const [selectedCoffee, setSelectedCoffee] = useState(null)
     const [showCoffeeTypes, setShowCoffeeTypes] = useState(false)
     const [coffeeCost, setCoffeeCost] = useState(0)
@@ -9,11 +13,20 @@ export default function CoffeeForm() {
     const [min, setMin] = useState(0)
 
     function handleSubmitForm() {
+        if (!isAuthenticated) {
+            setShowModal(true)
+            return
+        }
         console.log(selectedCoffee, coffeeCost, hour, min)
     }
 
     return (
         <>
+            {showModal && (
+                <Modal handleCloseModal={() => setShowModal(false)}>
+                    <Authentication />
+                </Modal>
+            )}
             <div className="section-header">
                 <i className="fa-solid fa-pencil"></i>
                 <h2>Start Tracking Today</h2>
@@ -42,7 +55,7 @@ export default function CoffeeForm() {
             {showCoffeeTypes && (
                 <select onChange={(e) => {
                     setSelectedCoffee(e.target.value)
-                    
+
                 }} name="coffee-list" id="coffee-list">
                     <option value={null}>Select Type</option>
                     {coffeeOptions.map((option, optionIndex) => {
@@ -54,15 +67,15 @@ export default function CoffeeForm() {
                     })}
                 </select>
             )}
-            
+
             <h4>Add the cost ($)</h4>
-            <input className="w-full" type="number" value={coffeeCost} placeholder="4.50" 
-                onChange={(e) => {setCoffeeCost(e.target.value)}} />
+            <input className="w-full" type="number" value={coffeeCost} placeholder="4.50"
+                onChange={(e) => { setCoffeeCost(e.target.value) }} />
             <h4>Time since consumption</h4>
             <div className="time-entry">
                 <div>
                     <h6>Hours</h6>
-                    <select onChange={(e) => {setHour(e.target.value)}} name="hours-select" id="hours-select">
+                    <select onChange={(e) => { setHour(e.target.value) }} name="hours-select" id="hours-select">
                         {Array.from({ length: 23 }, (_, i) => (
                             <option value={i} key={i}>{i}</option>
                         ))}
@@ -70,8 +83,8 @@ export default function CoffeeForm() {
                 </div>
                 <div>
                     <h6>Mins</h6>
-                    <select onChange={(e) => {setMin(e.target.value)}} name="mins-select" id="mins-select">
-                        {[0,5,10,15,30,45].map((min, minIndex) => (
+                    <select onChange={(e) => { setMin(e.target.value) }} name="mins-select" id="mins-select">
+                        {[0, 5, 10, 15, 30, 45].map((min, minIndex) => (
                             <option value={min} key={minIndex}>{min}</option>
                         ))}
                     </select>
