@@ -1,12 +1,77 @@
-# React + Vite
+# CoffeeTracked Web App ☕️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### A web application that helps coffee enthusiasts track their coffee consumption, monitor their caffeine levels, and view detailed coffee statistics over time.  
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Coffee Expenditure Tracking:** Log each cup and see your spending habits.
+- **Caffeine Level Monitoring:** Keep track of your daily caffeine intake.
+- **Coffee History:** View all your logged coffee entries.
+- **Stats Dashboard:** Analyze your coffee habits over time.
+- **Authentication:** Secure login and registration for personal data tracking.
+- **Responsive Design:** Works on desktop and mobile devices.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Demo
+🔗 [CoffeeTracked](https://coffeetracked.netlify.app/)
+
+<img src="image.png" alt="Form" style="width:400px; display:inline-block;" />
+<img src="image-1.png" alt="Stats and History" style="width:400px; display:inline-block;" />
+---
+
+## Project Structure
+```
+src/
+├── components/
+│ ├── Authentication.jsx # Login and registration components
+│ ├── CoffeeForm.jsx # Form for logging coffee intake
+│ ├── Hero.jsx # Landing page hero section
+│ ├── History.jsx # Displays user's coffee history
+│ ├── Layout.jsx # Main layout wrapper
+│ ├── Modal.jsx # Modal component for alerts/confirmations
+│ └── Stats.jsx # Coffee statistics dashboard
+├── context/
+│ └── AuthContext.jsx # React context for authentication state
+├── utils/
+│ └── index.js # Utility functions
+├── App.jsx 
+├── fanta.css # Custom styles  
+├── index.css # Global styles
+├── main.jsx # Entry point for React
+├── .gitignore 
+├── eslint.config.js # ESLint configuration
+├── firebase.js # Firebase configuration
+└── index.html 
+```
+---
+
+## Installation & Usage
+
+```bash
+git clone https://github.com/rakeebh7233/coffee-track.git
+cd coffee-tracker
+npm install
+```
+Set up Firebase:
+Replace the configuration in firebase.js with your Firebase project credentials.
+
+Starting the project:
+```bash
+npm run dev
+```
+Go to http://localhost:5173
+
+---
+
+## Technologies Used
+* React.js
+* Firebase Authentication & Firestore
+* JavaScript (ES6+)
+* CSS (Custom & Global styles)
+* Vite 
+
+---
+## Credits
+* CSS styling inspired by Fantacss by jamezmca — MIT License
