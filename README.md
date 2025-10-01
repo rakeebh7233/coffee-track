@@ -17,8 +17,11 @@
 ## Demo
 🔗 [CoffeeTracked](https://coffeetracked.netlify.app/)
 
-<img src="image.png" alt="Form" style="width:400px; display:inline-block;" />
-<img src="image-1.png" alt="Stats and History" style="width:400px; display:inline-block;" />
+<p float="left">
+  <img src="image.png" alt="Form" width="300" style="margin-right:10px;" />
+  <img src="image-1.png" alt="Stats and History" width="300" />
+</p>
+
 ---
 
 ## Project Structure
